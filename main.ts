@@ -130,31 +130,17 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     game.reset()
 })
-controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
-    blockSettings.clear()
-    game.reset()
-})
 let Green = 0
 let Red = 0
 let Blue = 0
 let textSprite: TextSprite = null
 let Word = ""
 let Stop = false
-if (!(blockSettings.exists("Word"))) {
-    game.showLongText("This is a word game", DialogLayout.Center)
-    game.showLongText("This game will generate random art and hide a word of your choosing in the art.", DialogLayout.Center)
-    game.showLongText("Press A to reset the game. Press B to revel the word's location. Press Menu to Re-chose the word.                               Good Luck", DialogLayout.Center)
-}
 let picture = image.screenImage().clone()
 scene.setBackgroundImage(picture)
 Stop = false
 timer.after(10000, function () {
-    if (!(blockSettings.exists("Word"))) {
-        Word = game.askForString("Choose a word to hide")
-        blockSettings.writeString("Word", Word)
-    } else {
-        Word = blockSettings.readString("Word")
-    }
+    Word = game.askForString("Choose a word to hide")
     timer.after(5000, function () {
         textSprite = textsprite.create("Null")
         textSprite.setText(Word)
